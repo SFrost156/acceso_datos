@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Iniciar Sesión</title>
+  <link rel="stylesheet" href="Styles/login.css">
+  <link rel="icon" href="/Resources/icono.png">
+</head>
+<body>
+  <div class="container">
+    <form action="php/login.php" method="POST">
+      <h2>Iniciar Sesión</h2>
+
+      <input type="text" name="username" placeholder="Usuario" required>
+
+      <input type="password" name="password" id="loginPassword" placeholder="Contraseña" required>
+
+      <label class="checkbox-container">
+        <input type="checkbox" onchange="togglePassword('loginPassword')">
+        Mostrar contraseña
+      </label>
+
+      <button type="submit">Ingresar</button>
+
+      <div class="link">
+        <a href="templates/registro.html">¿No tienes cuenta? Regístrate</a>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    function togglePassword(id) {
+      const input = document.getElementById(id);
+      input.type = input.type === "password" ? "text" : "password";
+    }
+  </script>
+</body>
+</html>
