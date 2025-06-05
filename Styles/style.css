@@ -1,0 +1,16 @@
+body {
+  font-family: Arial, sans-serif;
+  padding: 20px;
+  max-width: 400px;
+  margin: auto;
+}
+input, select, button {
+  width: 100%;
+  padding: 8px;
+  margin: 8px 0;
+}
+a {
+  display: block;
+  margin-top: 10px;
+  text-align: center;
+}
