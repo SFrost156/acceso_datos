@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Panel de Administrador</title>
+  <link rel="stylesheet" href="../Styles/admin.css">
+  <link rel="icon" href="/Resources/icono.png">
+</head>
+<body>
+  <div class="container">
+    <h2>Registro de Alimentos</h2>
+
+    <form action="../php/guardar_producto.php" method="POST" onsubmit="return validarTodo()">
+      <label for="fecha">Fecha del Inventario</label>
+      <input type="date" name="fecha" id="fecha" required max="">
+
+      <div id="productosContainer">
+        <div class="producto">
+          <input type="text" name="nombre[]" placeholder="Nombre del alimento" required>
+          <input type="number" name="cantidad[]" placeholder="Cantidad" min="1" required>
+          <input type="text" name="categoria[]" placeholder="Categoría" required>
+          <input type="number" name="precio[]" placeholder="Precio ($COP)" min="0" step="0.01" required>
+        </div>
+      </div>
+
+      <button type="button" onclick="agregarProducto()" class="btn-agregar">+ Agregar Producto</button>
+
+      <div class="botones">
+        <button type="submit" class="btn-registrar">Registrar</button>
+        <a href="mostrar_productos.html" class="btn-mostrar">Mostrar Productos</a>
+      </div>
+    </form>
+    <div class="cerrar-sesion">
+    <a href="../php/cerrar_sesion.php">Cerrar sesión</a>
+    </div>
+  </div>
+
+  <script>
+    // Bloquear fechas futuras automáticamente
+    document.addEventListener("DOMContentLoaded", () => {
+      const fechaInput = document.getElementById("fecha");
+      const hoy = new Date().toISOString().split("T")[0];
+      fechaInput.max = hoy;
+    });
+
+    function agregarProducto() {
+      const container = document.getElementById("productosContainer");
+      const div = document.createElement("div");
+      div.className = "producto";
+      div.innerHTML = `
+        <input type="text" name="nombre[]" placeholder="Nombre del alimento" required>
+        <input type="number" name="cantidad[]" placeholder="Cantidad" min="1" required>
+        <input type="text" name="categoria[]" placeholder="Categoría" required>
+        <input type="number" name="precio[]" placeholder="Precio ($COP)" min="0" step="0.01" required>
+      `;
+      container.appendChild(div);
+    }
+
+    function validarTodo() {
+      const fecha = document.getElementById("fecha").value;
+      const hoy = new Date().toISOString().split("T")[0];
+      if (fecha > hoy) {
+        alert("No se permiten fechas futuras.");
+        return false;
+      }
+
+      const nombres = document.getElementsByName("nombre[]");
+      const categorias = document.getElementsByName("categoria[]");
+      const cantidades = document.getElementsByName("cantidad[]");
+      const precios = document.getElementsByName("precio[]");
+
+      for (let i = 0; i < nombres.length; i++) {
+        if (!/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/.test(nombres[i].value.trim())) {
+          alert(`Nombre del producto ${i + 1} inválido.`);
+          return false;
+        }
+
+        if (!/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/.test(categorias[i].value.trim())) {
+          alert(`Categoría del producto ${i + 1} inválida.`);
+          return false;
+        }
+
+        if (cantidades[i].value <= 0 || isNaN(cantidades[i].value)) {
+          alert(`Cantidad inválida en el producto ${i + 1}`);
+          return false;
+        }
+
+        if (precios[i].value < 0 || isNaN(precios[i].value)) {
+          alert(`Precio inválido en el producto ${i + 1}`);
+          return false;
+        }
+      }
+
+      return true;
+    }
+  </script>
+</body>
+</html>

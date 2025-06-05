@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Gestión de Mesas - Mesero</title>
+  <link rel="stylesheet" href="../Styles/mesero.css">
+  <link rel="icon" href="/Resources/icono.png">
+</head>
+<body>
+  <h1>Sistema de Pedido - Mesero</h1>
+  <button id="agregarMesaBtn">Agregar Mesa</button>
+  <div id="mesas"></div>
+
+  <!-- Modal Recibo -->
+  <div id="modalRecibo" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2>Recibo</h2>
+      <div id="contenidoRecibo"></div>
+      <button id="confirmarPago">Confirmar Pago</button>
+    </div>
+  </div>
+  <div class="cerrar-sesion">
+  <a href="../php/cerrar_sesion.php">Cerrar sesión</a>
+  </div>
+
+  <script src="../Controller/mesas.js"></script>
+</body>
+</html>
